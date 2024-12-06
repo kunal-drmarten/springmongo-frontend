@@ -54,7 +54,6 @@ COPY --from=builder /app/dist/springmongo-frontend/browser .
 
 # Expose the port that http-server will run on
 EXPOSE 80
-
 # Start the http-server
 CMD ["http-server", "-p", "80", "--cors"]
 
