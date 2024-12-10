@@ -23,6 +23,7 @@ jobs:
             -Dsonar.login="${{ secrets.SONAR_TOKEN }}"
 
   docker-build-push:
+    needs: sonar-scan
     runs-on: self-hosted
 
     steps:
