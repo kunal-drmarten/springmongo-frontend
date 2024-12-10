@@ -7,12 +7,24 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  build:
-
+  # Job 1: Checkout Code and Scan with SonarScanner
+  sonar-scan:
     runs-on: self-hosted
-
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run SonarScanner
+        run: |
+          sonar-scanner \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.login=$SONAR_TOKEN
+            
+  # build:
+
+  #   runs-on: self-hosted
+
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - name: Build the Docker image
+  #     run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
