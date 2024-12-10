@@ -40,7 +40,7 @@ jobs:
       # Step 3: Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/springmongo-frontend:3 .
+          docker build -t 7987937230/springmongo-frontend:3 .
 
       # Step 4: Scan Docker image with Trivy
       - name: Scan Docker image with Trivy
@@ -50,5 +50,5 @@ jobs:
       # Step 5: Push the Docker image to Docker Hub
       - name: Push Docker image to Docker Hub
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/springmongo-frontend:3
+          docker push 7987937230/springmongo-frontend:3
 
