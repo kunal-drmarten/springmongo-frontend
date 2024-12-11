@@ -18,7 +18,6 @@ export class StudentComponent {
  
   currentStudentID = "";
 
-  private baseUrl = 'http://backend.default.svc.cluster.local:8081/api/v1/student';
 
   constructor(private http: HttpClient )
   {
@@ -35,7 +34,7 @@ export class StudentComponent {
       "mobile" : this.mobile
     };
  
-    this.http.post(`${this.baseUrl}/save`,bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
+    this.http.post("/api/v1/student/save",bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
     {
         console.log(resultData);
         alert("Student Registered Successfully");
@@ -51,7 +50,7 @@ export class StudentComponent {
   getAllStudent()
   {
     
-    this.http.get(`${this.baseUrl}/getall`)
+    this.http.get("/api/v1/student/getall")
   
     .subscribe((resultData: any)=>
     {
@@ -82,7 +81,7 @@ export class StudentComponent {
       "mobile" : this.mobile
     };
     
-    this.http.put(`${this.baseUrl}/edit/${this.currentStudentID}`, bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
+    this.http.put("/api/v1/student/edit"+ "/" + this.currentStudentID , bodyData,{responseType: 'text'}).subscribe((resultData: any)=>
     {
         console.log(resultData);
         alert("Student Registered Updateddd")
@@ -111,7 +110,7 @@ export class StudentComponent {
   {
     
     
-    this.http.delete(`${this.baseUrl}/delete/${data._id}`,{responseType: 'text'}).subscribe((resultData: any)=>
+    this.http.delete("/api/v1/student/delete"+ "/"+ data._id,{responseType: 'text'}).subscribe((resultData: any)=>
     {
         console.log(resultData);
         alert("Student Deletedddd")
