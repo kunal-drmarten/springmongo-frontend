@@ -53,3 +53,32 @@ jobs:
         run: |
           docker push 7987937230/springmongo-frontend:${{ github.sha }}
 
+  update-helm-repo:
+    needs:  docker-build-push
+    runs-on: self-hosted
+    
+    steps:
+      - name: Checkout Helm project repository
+        uses: actions/checkout@v3
+        with:
+          repository: kunal-drmarten/springmongo-helmchart # Replace with the actual repo name
+          token: ${{ secrets.GIT_TOKEN }}  # GitHub token to access the second repo
+          path: springmongo-helmchart  # Directory where the second repo will be checked out
+
+      # Step 3: Modify the file in the second repository
+      - name: Modify file in second repo
+        run: |
+          sed -i '' '/frontend:/,/tag:/s/tag: .*/tag: ${{ env.GITHUB_SHA }}/' springmongo-helmchart/springmongo-app/values.yaml
+
+
+      # Step 4: Commit and push the changes to the second repository
+      - name: Commit changes to second repository
+        run: |
+          cd springmongo-helmchart
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Update file.txt with new changes"
+          git push origin main  # Or the appropriate branch name
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }} 
