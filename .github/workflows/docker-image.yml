@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  GITHUB_SHA: ${{ github.sha }}
+
 jobs:
   # Job 1: Checkout Code and Scan with SonarScanner
   sonar-scan:
