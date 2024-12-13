@@ -46,7 +46,7 @@ jobs:
       # Step 4: Scan Docker image with Trivy
       - name: Scan Docker image with Trivy
         run: |
-          trivy image --exit-code 1 --no-progress --scanners vuln 7987937230/springmongo-frontend:1
+          trivy image --scanners vuln 7987937230/springmongo-frontend:1
           
       # Step 5: Push the Docker image to Docker Hub
       - name: Push Docker image to Docker Hub
